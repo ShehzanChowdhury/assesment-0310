@@ -10,14 +10,14 @@ interface TeamRowProps {
 export function TeamRow({ team }: TeamRowProps) {
   return (
     <tr>
-      <td>{team.name}</td>
-      <td className="text-center">
+      <td className="border-end border-dark">{team.name}</td>
+      <td className="text-center border-end border-dark">
         <StatusUpdateButtons
           team={team}
           approvalType="manager"
         />
       </td>
-      <td className="text-center">
+      <td className="text-center border-end border-dark">
         <StatusUpdateButtons
           team={team}
           approvalType="director"

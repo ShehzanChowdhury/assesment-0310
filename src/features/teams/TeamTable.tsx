@@ -1,6 +1,6 @@
-import React from 'react';
-import type { TeamDto } from '@/@types/team';
-import { TeamRow } from './TeamRow';
+import React from "react";
+import type { TeamDto } from "@/@types/team";
+import { TeamRow } from "./TeamRow";
 
 interface TeamTableProps {
   teams: TeamDto[];
@@ -9,13 +9,19 @@ interface TeamTableProps {
 export function TeamTable({ teams }: TeamTableProps) {
   return (
     <div className="table-responsive">
-      <table className="table table-hover mb-0 align-middle">
+      <table className="table table-hover mb-0 align-middle border border-dark">
         <thead className="table-success">
           <tr>
-            <th scope="col">Team Name</th>
-            <th scope="col" className="text-center">Approved by Manager</th>
-            <th scope="col" className="text-center">Approved by Director</th>
-            <th scope="col" style={{ width: 180 }}>Actions</th>
+            <th scope="col" className="border-end border-dark w-50">Team Name</th>
+            <th scope="col" className="text-center border-end border-dark">
+              Approved by Manager
+            </th>
+            <th scope="col" className="text-center border-end border-dark">
+              Approved by Director
+            </th>
+            <th scope="col" className="text-center border-end border-dark" style={{ width: 180 }}>
+              
+            </th>
           </tr>
         </thead>
         <tbody>

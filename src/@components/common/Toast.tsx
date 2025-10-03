@@ -1,5 +1,6 @@
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             "use client";
 import React from 'react';
+import { onGlobalError } from '@/@utils';
 
 type Toast = { id: number; message: string };
 
@@ -20,18 +21,39 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   const show = React.useCallback((message: string) => {
     const id = Date.now() + Math.random();
     setToasts((t) => [...t, { id, message }]);
-    setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), 2000);
+    setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), 3500);
   }, []);
+
+  // Subscribe to global error notifications
+  React.useEffect(() => {
+    const unsubscribe = onGlobalError((msg) => {
+      show(msg || 'Failed to fetch');
+    });
+    return unsubscribe;
+  }, [show]);
 
   return (
     <ToastContext.Provider value={{ show }}>
       {children}
       <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: 9999 }}>
         {toasts.map((t) => (
-          <div key={t.id} className="toast align-items-center text-bg-dark show mb-2" role="alert">
-            <div className="d-flex">
-              <div className="toast-body">{t.message}</div>
-              <button type="button" className="btn-close btn-close-white me-2 m-auto" aria-label="Close" onClick={() => setToasts((x) => x.filter((y) => y.id !== t.id))}></button>
+          <div
+            key={t.id}
+            className="toast show mb-2 border border-2 border-danger shadow-lg"
+            role="alert"
+            style={{ backgroundColor: '#dc3545', color: 'white', minWidth: 280 }}
+          >
+            <div className="d-flex align-items-center">
+              <div className="px-2 py-2 d-flex align-items-center">
+                <i className="bi bi-exclamation-triangle-fill me-2" aria-hidden="true"></i>
+                <span className="toast-body fw-semibold">{t.message}</span>
+              </div>
+              <button
+                type="button"
+                className="btn-close btn-close-white ms-auto me-2"
+                aria-label="Close"
+                onClick={() => setToasts((x) => x.filter((y) => y.id !== t.id))}
+              ></button>
             </div>
           </div>
         ))}

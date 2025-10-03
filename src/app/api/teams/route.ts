@@ -4,10 +4,10 @@ import { connectToDatabase } from '@/lib/db';
 import { TeamModel } from '@/models/Team';
 
 const MemberSchema = z.object({
-  name: z.string().min(1),
-  gender: z.string().min(1),
+  name: z.string().min(1, 'Name is required'),
+  gender: z.string().min(1, 'Gender is required'),
   dateOfBirth: z.coerce.date(),
-  contact: z.string().min(1),
+  contact: z.string().min(1, 'Contact number is required'),
 });
 
 const CreateTeamSchema = z.object({

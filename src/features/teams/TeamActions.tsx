@@ -31,9 +31,10 @@ export function TeamActions({ team }: TeamActionsProps) {
 
   return (
     <div className="d-flex gap-2">
-      <Link href={`/teams/${team._id}`} className="btn btn-link p-0">
+      <Link href={`/teams/${team._id}/edit`} className="btn btn-link p-0">
         Edit
       </Link>
+      |
       <button 
         className="btn btn-link text-danger p-0" 
         onClick={() => handleDelete(team._id)}
