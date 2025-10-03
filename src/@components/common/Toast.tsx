@@ -39,18 +39,18 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
         {toasts.map((t) => (
           <div
             key={t.id}
-            className="toast show mb-2 border border-2 border-danger shadow-lg"
+            className="toast show mb-2 border border-2 border-info shadow-lg"
             role="alert"
-            style={{ backgroundColor: '#dc3545', color: 'white', minWidth: 280 }}
+            style={{ backgroundColor: '#0dcaf0', color: '#052c65', minWidth: 280 }}
           >
             <div className="d-flex align-items-center">
               <div className="px-2 py-2 d-flex align-items-center">
-                <i className="bi bi-exclamation-triangle-fill me-2" aria-hidden="true"></i>
+                <i className="bi bi-info-circle-fill me-2" aria-hidden="true"></i>
                 <span className="toast-body fw-semibold">{t.message}</span>
               </div>
               <button
                 type="button"
-                className="btn-close btn-close-white ms-auto me-2"
+                className="btn-close ms-auto me-2"
                 aria-label="Close"
                 onClick={() => setToasts((x) => x.filter((y) => y.id !== t.id))}
               ></button>

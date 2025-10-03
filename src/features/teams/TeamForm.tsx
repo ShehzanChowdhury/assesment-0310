@@ -217,7 +217,7 @@ export function TeamForm({ team, mode }: TeamFormProps) {
             {/* Team Information Section */}
             <div className="row mb-8">
               
-              <div className="col-md-6 mb-3">
+              <div className="col-md-12 mb-3">
                 <label htmlFor="teamName" className="form-label">
                   Team Name <span className="text-danger">*</span>
                 </label>

@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { getTeams } from '@/lib/teams';
 import { TeamTable } from '@/features/teams';
 
+export const revalidate = 0;
+
 export default async function TeamsPage() {
   const teams = await getTeams();
 
