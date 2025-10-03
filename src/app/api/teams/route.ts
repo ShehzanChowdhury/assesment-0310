@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { connectToDatabase } from '@/lib/db';
-import { TeamModel, APPROVAL_STATES } from '@/models/Team';
+import { TeamModel } from '@/models/Team';
 
 const MemberSchema = z.object({
   name: z.string().min(1),
@@ -38,8 +38,8 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ success: true, data: team }, { status: 201 });
-  } catch (error: any) {
-    return jsonError(500, 'Failed to create team', error?.message);
+  } catch (error) {
+    return jsonError(500, 'Failed to create team', error);
   }
 }
 
@@ -67,8 +67,8 @@ export async function GET(req: NextRequest) {
         pages: Math.ceil(total / limit),
       },
     });
-  } catch (error: any) {
-    return jsonError(500, 'Failed to fetch teams', error?.message);
+  } catch (error) {
+    return jsonError(500, 'Failed to fetch teams', error);
   }
 }
 

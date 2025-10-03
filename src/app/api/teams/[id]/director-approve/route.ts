@@ -28,8 +28,8 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
     );
     if (!updated) return jsonError(404, 'Team not found');
     return NextResponse.json({ success: true, data: updated });
-  } catch (error: any) {
-    return jsonError(500, 'Failed to update director approval', error?.message);
+  } catch (error: unknown) {
+    return jsonError(500, 'Failed to update director approval', error instanceof Error ? error.message : 'Unknown error');
   }
 }
 

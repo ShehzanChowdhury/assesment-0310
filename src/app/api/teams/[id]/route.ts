@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import mongoose from 'mongoose';
 import { connectToDatabase } from '@/lib/db';
-import { TeamModel, APPROVAL_STATES } from '@/models/Team';
+import { TeamModel } from '@/models/Team';
 
 const MemberSchema = z.object({
   name: z.string().min(1),
@@ -30,8 +30,8 @@ export async function GET(_: NextRequest, { params }: { params: Promise<{ id: st
     const team = await TeamModel.findById(id).lean();
     if (!team) return jsonError(404, 'Team not found');
     return NextResponse.json({ success: true, data: team });
-  } catch (error: any) {
-    return jsonError(500, 'Failed to fetch team', error?.message);
+  } catch (error: unknown) {
+    return jsonError(500, 'Failed to fetch team', error instanceof Error ? error.message : 'Unknown error');
   }
 }
 
@@ -52,8 +52,8 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     );
     if (!updated) return jsonError(404, 'Team not found');
     return NextResponse.json({ success: true, data: updated });
-  } catch (error: any) {
-    return jsonError(500, 'Failed to update team', error?.message);
+  } catch (error: unknown) {
+    return jsonError(500, 'Failed to update team', error instanceof Error ? error.message : 'Unknown error');
   }
 }
 
@@ -65,8 +65,8 @@ export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id:
     const deleted = await TeamModel.findByIdAndDelete(id);
     if (!deleted) return jsonError(404, 'Team not found');
     return NextResponse.json({ success: true, data: { _id: id } });
-  } catch (error: any) {
-    return jsonError(500, 'Failed to delete team', error?.message);
+  } catch (error: unknown) {
+    return jsonError(500, 'Failed to delete team', error instanceof Error ? error.message : 'Unknown error');
   }
 }
 
